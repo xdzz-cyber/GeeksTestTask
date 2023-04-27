@@ -1,0 +1,27 @@
+﻿@model List<GeeksTestTask.ViewModels.FolderViewModel>
+
+<ul>
+    @foreach (var directory in Model)
+    {
+        <li>
+            @Html.DisplayFor(d => directory.Name)
+            @if (directory.Children.Any())
+            {
+                <ul>
+                    @foreach (var childDirectory in directory.Children)
+                    {
+                        <li>@Html.ActionLink(childDirectory.Name, "Index", new { id = childDirectory.Id })</li>
+                    }
+                </ul>
+            }
+        </li>
+    }
+</ul>
+
+<form method="post" enctype="multipart/form-data" asp-action="Import" asp-controller="Home">
+    <div class="form-group">
+        <label for="importFile">Import File:</label>
+        <input required="required" type="file" name="importFile" class="form-control-file" id="importFile" />
+    </div>
+    <button type="submit" class="btn btn-primary">Import</button>
+</form>
